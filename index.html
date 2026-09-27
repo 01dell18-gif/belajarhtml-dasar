@@ -1,0 +1,3801 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebCraft - Belajar Web Desain &amp; HTML Dasar Jadi Sangat Mudah!</title>
+  <meta name="description" content="Platform belajar web desain dan HTML dasar paling mudah dipahami untuk pemula. Pelajari langkah demi langkah dari HTML, CSS, JavaScript, hingga 1 file lengkap.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS DESIGN SYSTEM & TEMA
+       ========================================================================== */
+    :root {
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-code: 'Fira Code', Consolas, Monaco, monospace;
+
+      /* Dark Theme (Default) */
+      --bg-body: #0b0f19;
+      --bg-surface: #111827;
+      --bg-card: #1f2937;
+      --bg-card-hover: #283548;
+      --bg-panel: #0d1322;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: #6366f1;
+      
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #a855f7;
+
+      --code-bg: #090d16;
+      --code-text: #e2e8f0;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #f1f5f9;
+      --bg-card-hover: #e2e8f0;
+      --bg-panel: #e2e8f0;
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-focus: #4f46e5;
+
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+
+      --code-bg: #1e293b;
+      --code-text: #f8fafc;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-body);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 15, 25, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s ease;
+    }
+    [data-theme="light"] .site-header {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.25rem;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+    .brand-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+    [data-theme="light"] .brand-text h1 {
+      background: linear-gradient(to right, #0f172a, #4f46e5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-badge {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-full);
+      background: rgba(16, 185, 129, 0.18);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      font-weight: 700;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--bg-surface);
+      padding: 0.3rem 0.4rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      overflow-x: auto;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 10px var(--primary-glow);
+    }
+    .nav-btn-highlight {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
+      color: var(--accent-cyan);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       HERO BANNER - RAMAH PEMULA
+       ========================================================================== */
+    .hero-section {
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 65%);
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+    .hero-container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.35rem 1rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-size: clamp(1.85rem, 4.5vw, 2.85rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, #6366f1, #06b6d4, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 740px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.6;
+    }
+
+    /* 3 Pillars Analogy Banner */
+    .analogy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-width: 840px;
+      margin: 1.5rem auto 0;
+      text-align: left;
+    }
+    @media (max-width: 768px) {
+      .analogy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .analogy-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+    .analogy-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+    .analogy-content h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .analogy-content p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ==========================================================================
+       MAIN APP TABS CONTAINER
+       ========================================================================== */
+    .app-main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       SECTION 0: PANDUAN STEP-BY-STEP (PEMULA TOTAL)
+       ========================================================================== */
+    .step-section-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .step-header {
+      margin-bottom: 1.75rem;
+      text-align: center;
+    }
+    .step-header h3 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .step-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Stepper Bar */
+    .stepper-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .step-pill:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+    .step-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+    .step-num-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    /* Step Workspace Grid */
+    .step-workspace {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.75rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .step-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-explanation-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .step-intro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-cyan);
+    }
+    .step-title-text {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .step-desc-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Live Preview Box */
+    .step-preview-box {
+      background: #ffffff;
+      border: 2px dashed rgba(99, 102, 241, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      color: #0f172a;
+    }
+    .preview-watermark {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.08);
+      color: #475569;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+    }
+    .preview-canvas-inner {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* Code Box Wrapper */
+    .code-block-wrapper {
+      position: relative;
+      margin: 1rem 0;
+      background: var(--code-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+    }
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-family: var(--font-code);
+    }
+    .code-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .code-block {
+      padding: 1.2rem;
+      overflow-x: auto;
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      color: var(--code-text);
+      line-height: 1.55;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .copy-btn:hover {
+      background: var(--primary);
+    }
+
+    /* Callout Alert */
+    .callout {
+      padding: 1.2rem;
+      border-radius: var(--radius-md);
+      margin: 1rem 0;
+      border-left: 4px solid var(--primary);
+      background: rgba(99, 102, 241, 0.08);
+      font-size: 0.9rem;
+    }
+    .callout.tip {
+      border-left-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .callout.warning {
+      border-left-color: var(--accent-amber);
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ==========================================================================
+       SECTION: MODUL KURIKULUM LENGKAP
+       ========================================================================== */
+    .curriculum-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .curriculum-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .module-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: sticky;
+      top: 5rem;
+      height: fit-content;
+    }
+    .module-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      text-align: left;
+    }
+    .module-nav-item:hover {
+      border-color: var(--border-focus);
+      color: var(--text-main);
+      background: var(--bg-card);
+    }
+    .module-nav-item.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(6, 182, 212, 0.15));
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+    .module-badge-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      border: 1px solid var(--border-subtle);
+    }
+    .module-nav-item.active .module-badge-num {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .module-content-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .module-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.5rem;
+    }
+    .module-subtitle {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-cyan);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .module-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .module-lead {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .lesson-section {
+      margin-bottom: 2.5rem;
+    }
+    .lesson-section h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-main);
+    }
+    .lesson-section p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       SECTION: VISUALIZER STUDIO
+       ========================================================================== */
+    .studio-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .studio-tab-btn {
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .studio-tab-btn:hover {
+      color: var(--text-main);
+      border-color: var(--primary);
+    }
+    .studio-tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .studio-workspace {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 992px) {
+      .studio-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .studio-controls-panel {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      height: fit-content;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .control-val {
+      font-family: var(--font-code);
+      color: var(--accent-cyan);
+      font-size: 0.8rem;
+    }
+
+    .studio-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--bg-card);
+      outline: none;
+      transition: opacity 0.2s;
+    }
+    .studio-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--primary-glow);
+      border: 2px solid #fff;
+    }
+
+    .select-input, .text-input {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 0.6rem 0.85rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    .select-input:focus, .text-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .btn-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-pill:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+    .btn-pill.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .studio-preview-panel {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      min-height: 480px;
+    }
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.8rem;
+    }
+    .preview-title {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .preview-canvas-box {
+      flex: 1;
+      background: var(--bg-panel);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border-subtle);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Specific Visualizers */
+    .boxmodel-margin-layer {
+      background: rgba(251, 146, 60, 0.25);
+      border: 2px dashed #fb923c;
+      border-radius: 8px;
+      padding: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .boxmodel-border-layer {
+      background: rgba(250, 204, 21, 0.3);
+      border: 8px solid #facc15;
+      border-radius: 6px;
+      padding: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .boxmodel-padding-layer {
+      background: rgba(74, 222, 128, 0.3);
+      border: 2px dashed #4ade80;
+      border-radius: 4px;
+      padding: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .boxmodel-content-layer {
+      background: #38bdf8;
+      color: #0b0f19;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 16px 24px;
+      border-radius: 4px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+      transition: var(--transition);
+    }
+    .box-tag {
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+    .tag-margin { color: #ea580c; }
+    .tag-border { color: #ca8a04; }
+    .tag-padding { color: #16a34a; }
+
+    /* Flexbox Lab Canvas */
+    .flex-lab-container {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      border: 2px dashed rgba(99, 102, 241, 0.4);
+      border-radius: var(--radius-md);
+      background: rgba(99, 102, 241, 0.04);
+      padding: 1rem;
+      display: flex;
+      transition: var(--transition);
+    }
+    .flex-item-box {
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    /* Grid Lab */
+    .grid-lab-container {
+      width: 100%;
+      min-height: 280px;
+      display: grid;
+      gap: 12px;
+      resize: both;
+      overflow: auto;
+      border: 2px dashed rgba(6, 182, 212, 0.4);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      background: rgba(6, 182, 212, 0.03);
+    }
+    .grid-cell {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+    .grid-header { background: rgba(99, 102, 241, 0.2); border-color: var(--primary); }
+    .grid-nav { background: rgba(6, 182, 212, 0.2); border-color: var(--accent-cyan); }
+    .grid-main { background: rgba(16, 185, 129, 0.2); border-color: var(--accent-emerald); }
+    .grid-aside { background: rgba(245, 158, 11, 0.2); border-color: var(--accent-amber); }
+    .grid-footer { background: rgba(168, 85, 247, 0.2); border-color: var(--accent-purple); }
+
+    /* Animation Lab */
+    .anim-lab-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .anim-object {
+      width: 110px;
+      height: 110px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    @keyframes animPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(236, 72, 153, 0.4); }
+      50% { transform: scale(1.22); box-shadow: 0 0 45px rgba(236, 72, 153, 0.8); }
+    }
+    @keyframes animBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+    }
+    @keyframes animSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes animShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-15px); }
+      40%, 80% { transform: translateX(15px); }
+    }
+    @keyframes animFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(8deg); }
+    }
+    @keyframes animSwing {
+      20% { transform: rotate(15deg); }
+      40% { transform: rotate(-10deg); }
+      60% { transform: rotate(5deg); }
+      80% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* Hover Cards */
+    .hover-cards-row {
+      display: flex;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 600px;
+      justify-content: center;
+    }
+    .hover-card-item {
+      flex: 1;
+      padding: 1.5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .sibling-group:hover .hover-card-item:not(:hover) {
+      opacity: 0.35;
+      transform: scale(0.94);
+      filter: blur(1px);
+    }
+    .hover-card-item:hover {
+      transform: translateY(-8px) scale(1.04);
+      border-color: var(--primary);
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+    }
+
+    /* Semantic Inspector */
+    .semantic-wrapper {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .sem-node {
+      border: 2px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      position: relative;
+      background: var(--bg-card);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .sem-node:hover {
+      border-color: var(--accent-cyan);
+      background: var(--bg-card-hover);
+    }
+    .sem-node-tag {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.12);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+
+    /* ==========================================================================
+       SECTION: LIVE CODE SANDBOX
+       ========================================================================== */
+    .sandbox-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      min-height: 650px;
+    }
+    @media (max-width: 992px) {
+      .sandbox-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sandbox-editor-side {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .sandbox-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .editor-tabs {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .editor-tab-btn {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .editor-tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .editor-textarea {
+      width: 100%;
+      height: 440px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      outline: none;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .editor-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+
+    .sandbox-preview-side {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .preview-frame-wrapper {
+      flex: 1;
+      min-height: 460px;
+      height: 460px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      background: #ffffff;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .sandbox-iframe {
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      min-height: 460px;
+      border: none;
+      background: #ffffff;
+      display: block;
+    }
+
+    .sandbox-console {
+      background: var(--code-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      max-height: 120px;
+      overflow-y: auto;
+      color: #a7f3d0;
+    }
+
+    /* ==========================================================================
+       SECTION: FORM & GOOGLE APPS SCRIPT
+       ========================================================================== */
+    .gas-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 992px) {
+      .gas-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gas-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 2rem;
+    }
+    .gas-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .form-input, .form-textarea {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.9rem;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+
+    /* Spreadsheet Table Mock */
+    .sheet-preview-box {
+      margin-top: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .sheet-header {
+      background: #0f9d58;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .sheet-table th, .sheet-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+    .sheet-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-dim);
+    }
+
+    /* ==========================================================================
+       SECTION: QUIZ & EVALUASI
+       ========================================================================== */
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 2.5rem;
+    }
+    .quiz-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--bg-card);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary), var(--accent-emerald));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .quiz-question-card {
+      margin-bottom: 2rem;
+    }
+    .question-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .question-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 1.25rem;
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .option-btn:hover {
+      border-color: var(--primary);
+      background: var(--bg-card-hover);
+    }
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--accent-emerald);
+      color: var(--accent-emerald);
+    }
+    .option-btn.wrong {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: var(--accent-rose);
+      color: var(--accent-rose);
+    }
+
+    .quiz-feedback-box {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      display: none;
+      font-size: 0.9rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .quiz-feedback-box.correct {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--accent-emerald);
+      color: #34d399;
+    }
+    .quiz-feedback-box.wrong {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid var(--accent-rose);
+      color: #fb7185;
+    }
+
+    .certificate-card {
+      display: none;
+      text-align: center;
+      padding: 2.5rem;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at 50% 30%, rgba(99, 102, 241, 0.2), transparent 70%), var(--bg-card);
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 0 35px rgba(6, 182, 212, 0.2);
+    }
+    .cert-seal {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+    }
+
+    /* ==========================================================================
+       BUTTONS & UTILITIES
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      background: var(--bg-card-hover);
+    }
+    .btn-emerald {
+      background: var(--accent-emerald);
+      color: #0b0f19;
+      font-weight: 700;
+    }
+    .btn-emerald:hover {
+      filter: brightness(1.1);
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-emerald);
+      color: var(--text-main);
+      padding: 0.8rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      pointer-events: auto;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 2.5rem 1.5rem;
+      background: var(--bg-surface);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       SITE HEADER
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand" onclick="switchMainTab('stepbystep'); return false;">
+        <div class="brand-logo">&lt;/&gt;</div>
+        <div class="brand-text">
+          <h1>WebCraft</h1>
+        </div>
+        <span class="brand-badge">Mudah &bull; Pemula</span>
+      </a>
+
+      <!-- Navigation Tabs -->
+      <nav class="main-nav" aria-label="Navigasi Utama">
+        <button class="nav-btn nav-btn-highlight active" id="nav-btn-stepbystep" onclick="switchMainTab('stepbystep')">
+          <span>✨</span> Langkah Demi Langkah
+        </button>
+        <button class="nav-btn" id="nav-btn-curriculum" onclick="switchMainTab('curriculum')">
+          <span>📚</span> Modul Belajar
+        </button>
+        <button class="nav-btn" id="nav-btn-studio" onclick="switchMainTab('studio')">
+          <span>🎨</span> Visualizer Studio
+        </button>
+        <button class="nav-btn" id="nav-btn-sandbox" onclick="switchMainTab('sandbox')">
+          <span>💻</span> Live Sandbox
+        </button>
+        <button class="nav-btn" id="nav-btn-gas" onclick="switchMainTab('gas')">
+          <span>📡</span> Form &amp; Sheets
+        </button>
+        <button class="nav-btn" id="nav-btn-quiz" onclick="switchMainTab('quiz')">
+          <span>🏆</span> Kuis &amp; Sertifikat
+        </button>
+      </nav>
+
+      <!-- Theme Switcher -->
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle-btn" title="Ganti Mode Gelap / Terang" onclick="toggleTheme()">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO BANNER
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-pill">
+        <span>🌱</span> Khusus Pemula: Belajar Web Jadi Mudah &amp; Menyenangkan!
+      </div>
+      <h2 class="hero-title">
+        Belajar Web Desain &amp; HTML Dasar <span>Tanpa Pusing!</span>
+      </h2>
+      <p class="hero-desc">
+        Tidak perlu takut dengan istilah rumit. Lihat bagaimana sebuah website dibangun dari <strong>HTML (kerangka)</strong>, dipercantik dengan <strong>CSS (dekorasi)</strong>, dan diberi aksi dengan <strong>JavaScript (reaksi)</strong> secara nyata!
+      </p>
+
+      <!-- Analogi 3 Pilar Web -->
+      <div class="analogy-grid">
+        <div class="analogy-card">
+          <div class="analogy-icon">🧱</div>
+          <div class="analogy-content">
+            <h4>1. HTML (Kerangka)</h4>
+            <p>Ibarat dinding dan bata rumah. Menentukan ada tulisan, gambar, dan tombol.</p>
+          </div>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-icon">🎨</div>
+          <div class="analogy-content">
+            <h4>2. CSS (Dekorasi)</h4>
+            <p>Ibarat cat dinding dan perabot. Mengatur warna, jarak, font, dan keindahan tampilan.</p>
+          </div>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-icon">⚡</div>
+          <div class="analogy-content">
+            <h4>3. JavaScript (Aksi)</h4>
+            <p>Ibarat saklar lampu dan bel rumah. Membuat tombol merespons saat diklik pengunjung!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MAIN APP WORKSPACE
+       ========================================================================== -->
+  <main class="app-main">
+
+    <!-- ========================================================================
+         TAB 0: PANDUAN STEP-BY-STEP (PEMULA TOTAL)
+         ======================================================================== -->
+    <section id="tab-stepbystep" class="tab-content active">
+      <div class="step-section-card">
+        <div class="step-header">
+          <span style="font-size:0.8rem; font-weight:700; color:var(--accent-cyan); text-transform:uppercase; letter-spacing:0.05em;">Panduan Eksklusif Pemula</span>
+          <h3>Evolusi Website: Dari Nol Hingga Jadi</h3>
+          <p>
+            Klik tombol langkah di bawah secara berurutan. Perhatikan bagaimana kode berubah di sebelah kiri dan tampilannya langsung berubah di sebelah kanan!
+          </p>
+        </div>
+
+        <!-- Stepper Navigation -->
+        <div class="stepper-bar">
+          <button class="step-pill active" id="step-btn-1" onclick="setStep(1)">
+            <span class="step-num-badge">1</span>
+            <span>Langkah 1: HTML Saja (Kerangka Polos)</span>
+          </button>
+          <button class="step-pill" id="step-btn-2" onclick="setStep(2)">
+            <span class="step-num-badge">2</span>
+            <span>Langkah 2: Tambah CSS (Mempercantik)</span>
+          </button>
+          <button class="step-pill" id="step-btn-3" onclick="setStep(3)">
+            <span class="step-num-badge">3</span>
+            <span>Langkah 3: Tambah JavaScript (Aksi Klik)</span>
+          </button>
+          <button class="step-pill" id="step-btn-4" onclick="setStep(4)">
+            <span class="step-num-badge">4</span>
+            <span>Langkah 4: Hasil 1 File Lengkap Siap Pakai!</span>
+          </button>
+        </div>
+
+        <!-- Step Workspace -->
+        <div class="step-workspace">
+          <!-- Left Side: Explanation & Code -->
+          <div class="step-explanation-box">
+            <div class="step-intro-badge" id="step-badge">LANGKAH 1 DARI 4</div>
+            <h4 class="step-title-text" id="step-title">Membuat Tulisan &amp; Tombol dengan HTML</h4>
+            <p class="step-desc-text" id="step-description">
+              HTML hanya bertugas menyiapkan isi tulisan dan elemen tombol. Tanpa CSS, browser akan menampilkan tulisan hitam-putih standar yang tampak sangat polos di pojok kiri atas.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-block-header">
+                <span id="step-code-title">KODE HTML POLOS</span>
+                <button class="copy-btn" onclick="copyCurrentStepCode()">📋 Salin Kode Ini</button>
+              </div>
+              <pre class="code-block"><code id="step-code-content"></code></pre>
+            </div>
+
+            <!-- Friendly Insight Callout -->
+            <div class="callout tip" id="step-callout">
+              <div class="callout-title">💡 Penjelasan Mudah:</div>
+              <div id="step-callout-text">
+                Tag <code>&lt;h2&gt;</code> membuat judul tebal, <code>&lt;p&gt;</code> membuat kalimat paragraf, dan <code>&lt;button&gt;</code> membuat tombol klik standar.
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+              <button class="btn btn-secondary" id="step-prev-btn" onclick="navigateStep(-1)" style="visibility:hidden;">
+                ⬅ Langkah Sebelumnya
+              </button>
+              <button class="btn btn-primary" id="step-next-btn" onclick="navigateStep(1)">
+                Lanjut ke Langkah 2 (Tambah CSS) ➔
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Side: Live Interactive Preview -->
+          <div class="step-preview-box">
+            <span class="preview-watermark" id="preview-watermark-tag">PRATINJAU: HTML POLOS</span>
+            
+            <div class="preview-canvas-inner" id="step-live-preview">
+              <!-- Live preview injected by JavaScript -->
+            </div>
+
+            <div style="text-align:center; margin-top:1rem; font-size:0.8rem; color:#64748b; border-top:1px solid #e2e8f0; padding-top:0.75rem;" id="step-preview-caption">
+              Tampilan standar browser tanpa polesan CSS sama sekali.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TAB 1: KURIKULUM & MODUL PEMBELAJARAN
+         ======================================================================== -->
+    <section id="tab-curriculum" class="tab-content">
+      <div class="curriculum-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="module-sidebar">
+          <button class="module-nav-item active" onclick="loadModule(1)">
+            <span class="module-badge-num">1</span>
+            <span>HTML5: Struktur Dasar &amp; Teks</span>
+          </button>
+          <button class="module-nav-item" onclick="loadModule(2)">
+            <span class="module-badge-num">2</span>
+            <span>CSS3: Warna, Jarak &amp; Posisi</span>
+          </button>
+          <button class="module-nav-item" onclick="loadModule(3)">
+            <span class="module-badge-num">3</span>
+            <span>JavaScript: Logika &amp; Respon</span>
+          </button>
+          <button class="module-nav-item" onclick="loadModule(4)">
+            <span class="module-badge-num">4</span>
+            <span>Formulir + Google Sheets Gratis</span>
+          </button>
+          <button class="module-nav-item" onclick="loadModule(5)">
+            <span class="module-badge-num">5</span>
+            <span>Kirim Website Online ke GitHub Pages</span>
+          </button>
+        </aside>
+
+        <!-- Main Module Content Area -->
+        <article class="module-content-card" id="module-display-area">
+          <!-- Dynamic Module Content Populated by JavaScript -->
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TAB 2: VISUALIZER STUDIO HUB
+         ======================================================================== -->
+    <section id="tab-studio" class="tab-content">
+      <div class="studio-tabs">
+        <button class="studio-tab-btn active" onclick="switchStudio('boxmodel')">
+          <span>📦</span> Box Model Lab (Bantal &amp; Jarak)
+        </button>
+        <button class="studio-tab-btn" onclick="switchStudio('flexbox')">
+          <span>📐</span> Flexbox Lab (Rak Penata Otomatis)
+        </button>
+        <button class="studio-tab-btn" onclick="switchStudio('grid')">
+          <span>📰</span> CSS Grid Builder (Tabel Tata Letak)
+        </button>
+        <button class="studio-tab-btn" onclick="switchStudio('animation')">
+          <span>✨</span> Keyframe &amp; Gerakan Halus
+        </button>
+        <button class="studio-tab-btn" onclick="switchStudio('hover')">
+          <span>⚡</span> Sentuhan Kursor (Hover)
+        </button>
+        <button class="studio-tab-btn" onclick="switchStudio('semantic')">
+          <span>🏷️</span> HTML Semantik vs Div Biasa
+        </button>
+      </div>
+
+      <div class="studio-workspace">
+        <div class="studio-controls-panel" id="studio-controls-container"></div>
+
+        <div class="studio-preview-panel">
+          <div class="preview-header">
+            <h3 class="preview-title" id="studio-preview-title">
+              <span>👁️</span> Live Visualizer Preview
+            </h3>
+            <button class="btn btn-secondary" style="font-size:0.8rem; padding:0.4rem 0.8rem;" onclick="copyStudioCSS()">
+              📋 Salin CSS
+            </button>
+          </div>
+
+          <div class="preview-canvas-box" id="studio-canvas"></div>
+
+          <div class="code-block-wrapper" style="margin-top:0.5rem;">
+            <div class="code-block-header">
+              <span>KODE CSS OTOMATIS</span>
+              <button class="copy-btn" onclick="copyStudioCSS()">Salin Kode</button>
+            </div>
+            <pre class="code-block"><code id="studio-code-output">/* CSS akan dihasilkan otomatis */</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TAB 3: LIVE CODE SANDBOX
+         ======================================================================== -->
+    <section id="tab-sandbox" class="tab-content">
+      <div class="sandbox-container">
+        <div class="sandbox-editor-side">
+          <div class="sandbox-toolbar">
+            <div class="editor-tabs">
+              <button class="editor-tab-btn active" id="tab-btn-html" onclick="switchEditorLanguage('html')">HTML</button>
+              <button class="editor-tab-btn" id="tab-btn-css" onclick="switchEditorLanguage('css')">CSS</button>
+              <button class="editor-tab-btn" id="tab-btn-js" onclick="switchEditorLanguage('js')">JavaScript</button>
+            </div>
+            
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <select class="select-input" id="sandbox-template-select" onchange="loadSandboxTemplate(this.value)">
+                <option value="profile">Template: Kartu Profil Sederhana</option>
+                <option value="step4">Template: Kartu Sapaan Step-by-Step</option>
+                <option value="contact">Template: Form Kontak Simpel</option>
+                <option value="calculator">Template: Mini Kalkulator</option>
+                <option value="landing">Template: Landing Page Mini</option>
+              </select>
+              <button class="btn btn-primary" style="padding:0.45rem 0.9rem;" onclick="runSandboxCode()">
+                ▶ Jalankan
+              </button>
+              <button class="btn btn-emerald" style="padding:0.45rem 0.9rem;" onclick="downloadSandboxProject()">
+                💾 Unduh File .html
+              </button>
+            </div>
+          </div>
+
+          <textarea class="editor-textarea" id="sandbox-code-editor" spellcheck="false" placeholder="Tulis kode di sini..."></textarea>
+          
+          <div style="font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+            <span>Preview otomatis diperbarui saat Anda mengetik</span>
+            <span>Bisa langsung diunduh menjadi file .html nyata</span>
+          </div>
+        </div>
+
+        <div class="sandbox-preview-side">
+          <div class="preview-header">
+            <h4 style="font-size:0.9rem; font-weight:700;">Pratinjau Nyata di Browser</h4>
+            <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;" onclick="resetSandboxCode()">
+              🔄 Reset Template
+            </button>
+          </div>
+          <div class="preview-frame-wrapper">
+            <iframe id="sandbox-live-frame" class="sandbox-iframe"></iframe>
+          </div>
+          <div class="sandbox-console" id="sandbox-console-output">
+            &gt; Konsol: pesan dari console.log() akan muncul di sini...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TAB 4: FORM & GOOGLE APPS SCRIPT
+         ======================================================================== -->
+    <section id="tab-gas" class="tab-content">
+      <div class="gas-container">
+        <div class="gas-card">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+            <span style="font-size:1.5rem;">📡</span>
+            <h3 style="font-size:1.35rem; font-weight:800;">Uji Coba Kirim Form ke Google Sheets</h3>
+          </div>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">
+            Simpan data form pengunjung langsung ke baris Google Sheets secara gratis tanpa biaya server!
+          </p>
+
+          <div class="control-group" style="margin-bottom:1.25rem;">
+            <label class="control-label">Pilih Mode Pengujian</label>
+            <div class="btn-group">
+              <button class="btn-pill active" id="gas-mode-mock" onclick="setGasMode('mock')">🧪 Mode Simulasi Cepat</button>
+              <button class="btn-pill" id="gas-mode-live" onclick="setGasMode('live')">🌐 URL Google Script Nyata</button>
+            </div>
+          </div>
+
+          <div class="control-group" id="gas-url-container" style="display:none; margin-bottom:1.25rem;">
+            <label class="form-label" for="gas-endpoint-url">Web App URL Google Apps Script Anda:</label>
+            <input type="url" id="gas-endpoint-url" class="form-input" placeholder="https://script.google.com/macros/s/AKfycb.../exec">
+          </div>
+
+          <form class="gas-form" id="gas-demo-form" onsubmit="handleGasFormSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="gas-input-name">Nama Pengirim *</label>
+              <input type="text" id="gas-input-name" class="form-input" required placeholder="Contoh: Budi">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="gas-input-email">Email Aktif *</label>
+              <input type="email" id="gas-input-email" class="form-input" required placeholder="budi@contoh.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="gas-input-message">Pesan / Komentar *</label>
+              <textarea id="gas-input-message" class="form-textarea" rows="3" required placeholder="Halo, saya baru belajar membuat web!"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="gas-submit-btn">
+              🚀 Kirim Sekarang
+            </button>
+          </form>
+
+          <div id="gas-status-alert" style="margin-top:1rem; display:none;" class="callout"></div>
+        </div>
+
+        <div class="gas-card">
+          <h4 style="font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>🔍</span> Data yang Dikirim (Format JSON)
+          </h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+            Data teks inilah yang diterbangkan oleh browser ke server Google Spreadsheet:
+          </p>
+
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>DATA PAKET</span>
+              <button class="copy-btn" onclick="copyGasPayload()">Salin</button>
+            </div>
+            <pre class="code-block"><code id="gas-payload-code">{\n  "nama": "...",\n  "email": "...",\n  "pesan": "..."\n}</code></pre>
+          </div>
+
+          <div class="sheet-preview-box">
+            <div class="sheet-header">
+              <span>📊 Tampilan Tabel Google Sheets (Simulasi Nyata)</span>
+              <span style="font-size:0.75rem; font-weight:normal;" id="sheet-row-count">3 baris data</span>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="sheet-table">
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Pesan</th>
+                  </tr>
+                </thead>
+                <tbody id="sheet-table-body">
+                  <tr>
+                    <td>2026-09-27 10:15</td>
+                    <td>Ahmad</td>
+                    <td>ahmad@mail.com</td>
+                    <td>WebCraft sangat gampang dipahami pemula!</td>
+                  </tr>
+                  <tr>
+                    <td>2026-09-27 11:30</td>
+                    <td>Siti</td>
+                    <td>siti@mail.com</td>
+                    <td>Penjelasan analoginya sangat jelas.</td>
+                  </tr>
+                  <tr>
+                    <td>2026-09-27 13:05</td>
+                    <td>Doni</td>
+                    <td>doni@mail.com</td>
+                    <td>Bisa punya database gratis tanpa bayar server!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style="margin-top:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+              <strong style="font-size:0.9rem;">Skrip Google Apps Script (`Code.gs`):</strong>
+              <button class="copy-btn" onclick="copyCodeGs()">Salin Skrip</button>
+            </div>
+            <div class="code-block-wrapper" style="margin-top:0;">
+              <pre class="code-block"><code id="codegs-source">// Tempelkan di menu Extensions -> Apps Script pada Google Sheets
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([new Date(), data.nama, data.email, data.pesan]);
+  return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TAB 5: KUIS PEMAHAMAN & SERTIFIKAT
+         ======================================================================== -->
+    <section id="tab-quiz" class="tab-content">
+      <div class="quiz-container" id="quiz-main-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <div>
+            <h3 style="font-size:1.4rem; font-weight:800;">Kuis Ringan Pemahaman Web</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem;">Yuk uji apa saja yang sudah kita pelajari dengan pertanyaan santai!</p>
+          </div>
+          <div style="text-align:right;">
+            <span style="font-size:1.1rem; font-weight:800; color:var(--primary);" id="quiz-current-num">1</span>
+            <span style="color:var(--text-dim); font-size:0.9rem;" id="quiz-total-num">/ 10</span>
+          </div>
+        </div>
+
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quiz-progress-bar-fill"></div>
+        </div>
+
+        <div class="quiz-question-card">
+          <div class="question-badge" id="quiz-cat-badge">MODUL 1: HTML5</div>
+          <h4 class="question-title" id="quiz-question-text">Memuat pertanyaan...</h4>
+          <div class="options-list" id="quiz-options-container"></div>
+        </div>
+
+        <div class="quiz-feedback-box" id="quiz-feedback">
+          <strong id="quiz-feedback-title">Penjelasan:</strong>
+          <p id="quiz-feedback-text"></p>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem;">
+          <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Ulang Kuis</button>
+          <button class="btn btn-primary" id="quiz-next-btn" style="display:none;" onclick="nextQuestion()">
+            Lanjut ke Soal Berikutnya ➔
+          </button>
+        </div>
+      </div>
+
+      <div class="quiz-container certificate-card" id="quiz-certificate-view">
+        <div class="cert-seal">🏆</div>
+        <div style="text-transform:uppercase; letter-spacing:0.15em; font-size:0.85rem; color:var(--accent-cyan); font-weight:800; margin-bottom:0.5rem;">
+          SERTIFIKAT KELULUSAN
+        </div>
+        <h3 style="font-size:2rem; font-weight:800; margin-bottom:1rem;">WebCraft Beginner Certificate</h3>
+        <p style="color:var(--text-muted); max-width:550px; margin:0 auto 1.5rem;">
+          Diberikan kepada siswa berprestasi yang telah berhasil memahami konsep dasar <strong>HTML, CSS, JavaScript, dan Pembuatan Website Sederhana</strong>.
+        </p>
+
+        <div style="margin:1.5rem 0;">
+          <label style="font-size:0.85rem; color:var(--text-muted); display:block; margin-bottom:0.5rem;">Ketik Nama Lengkap Anda:</label>
+          <input type="text" id="cert-student-name" class="form-input" style="max-width:360px; margin:0 auto; text-align:center; font-weight:700; font-size:1.1rem;" value="Budi Developer Pemula" oninput="updateCertName(this.value)">
+        </div>
+
+        <div style="font-size:0.9rem; color:var(--accent-emerald); font-weight:700; margin-bottom:2rem;">
+          Skor Akhir: <span id="cert-final-score">100%</span> &bull; Status: LULUS
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:1rem;">
+          <button class="btn btn-primary" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+          <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Coba Kuis Lagi</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       SITE FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <span style="font-weight:800; color:var(--primary); font-size:1.1rem;">WebCraft Studio</span>
+        <span>&bull;</span>
+        <span>Media Pembelajaran Web Paling Ramah Pemula</span>
+      </div>
+      <p>
+        Dibuat untuk memudahkan semua orang memulai belajar koding web tanpa ribet.
+      </p>
+      <div class="footer-links">
+        <a href="#tab-stepbystep" onclick="switchMainTab('stepbystep'); return false;">✨ Panduan Step-by-Step</a>
+        <a href="#tab-curriculum" onclick="switchMainTab('curriculum'); return false;">📚 Modul Belajar</a>
+        <a href="#tab-studio" onclick="switchMainTab('studio'); return false;">🎨 Visualizer Studio</a>
+        <a href="#tab-sandbox" onclick="switchMainTab('sandbox'); return false;">💻 Live Sandbox</a>
+        <a href="#tab-gas" onclick="switchMainTab('gas'); return false;">📡 Form &amp; Sheets</a>
+        <a href="#tab-quiz" onclick="switchMainTab('quiz'); return false;">🏆 Kuis &amp; Sertifikat</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ==========================================================================
+       CORE JAVASCRIPT
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. GLOBAL STATE & THEME
+       ========================================================================== */
+    const state = {
+      theme: localStorage.getItem('webcraft_theme') || 'dark',
+      activeTab: 'stepbystep',
+      currentStep: 1,
+      activeModule: 1,
+      completedModules: JSON.parse(localStorage.getItem('webcraft_completed') || '[1]'),
+      activeStudio: 'boxmodel',
+      editorLanguage: 'html',
+      sandboxCode: {
+        html: '',
+        css: '',
+        js: ''
+      },
+      gasMode: 'mock',
+      quizIndex: 0,
+      quizScore: 0,
+      quizAnswered: false,
+      studentName: localStorage.getItem('webcraft_student_name') || 'Budi Developer Pemula'
+    };
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const icon = document.getElementById('theme-icon');
+      if (icon) {
+        icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+      }
+      localStorage.setItem('webcraft_theme', theme);
+    }
+    applyTheme(state.theme);
+
+    function toggleTheme() {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(state.theme);
+      showToast(`Mode tema: ${state.theme === 'dark' ? 'Gelap (Dark)' : 'Terang (Light)'}`);
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span>${type === 'success' ? '✅' : 'ℹ️'}</span> <span>${message}</span>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => toast.classList.add('show'), 10);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function copyText(text, successMsg = 'Berhasil disalin ke clipboard!') {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast(successMsg));
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(successMsg);
+      }
+    }
+
+    function switchMainTab(tabId) {
+      state.activeTab = tabId;
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+      const activeSection = document.getElementById(`tab-${tabId}`);
+      const activeNavBtn = document.getElementById(`nav-btn-${tabId}`);
+      if (activeSection) activeSection.classList.add('active');
+      if (activeNavBtn) activeNavBtn.classList.add('active');
+
+      if (tabId === 'stepbystep') {
+        renderStep();
+      } else if (tabId === 'studio') {
+        renderStudio();
+      } else if (tabId === 'sandbox') {
+        if (!state.sandboxCode.html) {
+          loadSandboxTemplate('profile');
+        } else {
+          runSandboxCode();
+        }
+      } else if (tabId === 'gas') {
+        updateGasPayloadPreview();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       2. FITUR STEP-BY-STEP PEMULA (HTML -> CSS -> JS -> FILE LENGKAP)
+       ========================================================================== */
+    const stepData = {
+      1: {
+        badge: "LANGKAH 1 DARI 4",
+        title: "Langkah 1: Membuat Kerangka dengan HTML Saja",
+        desc: "Bayangkan Anda sedang membangun sebuah rumah. HTML adalah batu bata dan semen yang menyusun dinding kamar dan pintu. Tanpa cat (CSS), tampilannya masih polos hitam-putih standar bawaan browser.",
+        codeTitle: "KODE HTML POLOS",
+        code: `<div class="kartu">
+  <h2>Halo, Saya Budi! 👋</h2>
+  <p>Saya baru mulai belajar membuat website dari dasar.</p>
+  <button id="tombolSapa">Klik Saya</button>
+</div>`,
+        callout: "Perhatikan tag &lt;h2&gt; untuk judul, &lt;p&gt; untuk tulisan isi, dan &lt;button&gt; untuk tombol. Semuanya berada di pojok kiri atas dan bentuk tombolnya masih tombol kuno abu-abu standar.",
+        previewWatermark: "PRATINJAU: HANYA HTML POLOS",
+        previewCaption: "Tampilan asli HTML tanpa warna ataupun aturan tata letak CSS.",
+        renderPreview: function() {
+          return `
+            <div style="font-family: serif; color: #000; text-align: left; width: 100%; max-width: 320px;">
+              <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Halo, Saya Budi! 👋</h2>
+              <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.4;">Saya baru mulai belajar membuat website dari dasar.</p>
+              <button style="padding: 3px 8px; font-size: 0.85rem; cursor: pointer;">Klik Saya</button>
+            </div>
+          `;
+        }
+      },
+      2: {
+        badge: "LANGKAH 2 DARI 4",
+        title: "Langkah 2: Mempercantik Tampilan dengan CSS",
+        desc: "Sekarang kita panggil CSS! CSS bertindak seperti cat dinding, lantai keramik, dan perabot yang indah. Kita beri kartu ini latar belakang putih melayang dengan bayangan halus, teks rapi di tengah, dan tombol berwarna ungu cerah.",
+        codeTitle: "KODE CSS TAMBAHAN",
+        code: `/* Gaya untuk mempercantik kartu */
+.kartu {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+h2 { color: #1e293b; margin-top: 0; }
+p { color: #64748b; line-height: 1.5; }
+
+button {
+  background-color: #6366f1; /* Warna ungu */
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}`,
+        callout: "Lihat perbedaannya di sebelah kanan! Berkat properti 'border-radius', 'padding', dan 'box-shadow', kartu sekarang tampak sangat modern seperti buatan profesional!",
+        previewWatermark: "PRATINJAU: HTML + DIPERINDAH CSS",
+        previewCaption: "Kartu langsung menjadi rapi di tengah dengan sudut membulat dan tombol ungu estetik!",
+        renderPreview: function() {
+          return `
+            <div style="background:#ffffff; padding:28px 24px; border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.12); text-align:center; max-width:320px; width:100%; border:1px solid #e2e8f0; font-family:var(--font-main);">
+              <h2 style="color:#1e293b; font-size:1.35rem; margin-top:0; margin-bottom:0.4rem; font-weight:800;">Halo, Saya Budi! 👋</h2>
+              <p style="color:#64748b; font-size:0.9rem; line-height:1.5; margin-bottom:1.25rem;">Saya baru mulai belajar membuat website dari dasar.</p>
+              <button style="background:#6366f1; color:#fff; border:none; padding:10px 22px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 14px rgba(99,102,241,0.35);">Klik Saya</button>
+            </div>
+          `;
+        }
+      },
+      3: {
+        badge: "LANGKAH 3 DARI 4",
+        title: "Langkah 3: Menambahkan JavaScript (Aksi Interaktif)",
+        desc: "Kartu kita sudah cantik, tetapi tombolnya belum bisa merespons apa-apa jika ditekan. Di sinilah JavaScript bertindak sebagai saklar listrik! Saat pengunjung mengklik tombol, JavaScript mendengarkan klik itu dan memunculkan sapaan ramah serta mengubah warna tombol.",
+        codeTitle: "KODE JAVASCRIPT SEDERHANA",
+        code: `// 1. Ambil tombol berdasarkan ID 'tombolSapa'
+const tombol = document.getElementById("tombolSapa");
+
+// 2. Pasang pendengar klik (Event Listener)
+tombol.addEventListener("click", function() {
+  // Aksi yang terjadi saat tombol diklik:
+  alert("Halo teman! Selamat datang di dunia Web Development 🎉");
+  
+  // Ubah teks dan warna tombol
+  tombol.innerText = "Sudah Diklik ✓";
+  tombol.style.backgroundColor = "#10b981"; // Ubah jadi warna hijau
+});`,
+        callout: "Ayo coba klik tombol di panel sebelah kanan! Tombolnya sekarang benar-benar HIDUP dan akan memunculkan pesan sapaan serta berubah warna menjadi hijau!",
+        previewWatermark: "PRATINJAU: INTERAKTIF (COBA KLIK TOMBOLNYA!)",
+        previewCaption: "Klik tombol di atas untuk membuktikan bahwa JavaScript benar-benar bereaksi!",
+        renderPreview: function() {
+          return `
+            <div style="background:#ffffff; padding:28px 24px; border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.12); text-align:center; max-width:320px; width:100%; border:1px solid #e2e8f0; font-family:var(--font-main);">
+              <h2 style="color:#1e293b; font-size:1.35rem; margin-top:0; margin-bottom:0.4rem; font-weight:800;">Halo, Saya Budi! 👋</h2>
+              <p style="color:#64748b; font-size:0.9rem; line-height:1.5; margin-bottom:1.25rem;">Saya baru mulai belajar membuat website dari dasar.</p>
+              <button id="step3-interactive-btn" onclick="testStep3Click(this)" style="background:#6366f1; color:#fff; border:none; padding:10px 22px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 14px rgba(99,102,241,0.35); transition:all 0.3s ease;">
+                Klik Saya (Interaktif)
+              </button>
+            </div>
+          `;
+        }
+      },
+      4: {
+        badge: "LANGKAH 4 DARI 4 (HASIL JADI)",
+        title: "Langkah 4: Hasil Akhir 1 File HTML Lengkap",
+        desc: "Selamat! Sekarang Anda sudah paham ketiganya. Sekarang kita satukan tag HTML, gaya CSS (di dalam <style>), dan logika JavaScript (di dalam <script>) menjadi 1 buah file utuh index.html. File ini bisa langsung Anda simpan di komputer dan dibuka di browser apa pun tanpa bantuan aplikasi lain!",
+        codeTitle: "1 FILE HTML LENGKAP UTUH (SIAP SALIN)",
+        code: `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Sederhana Pertama Saya</title>
+  
+  <!-- Bagian 1: CSS untuk mempercantik kartu -->
+  <style>
+    body {
+      background-color: #f1f5f9;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .kartu {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 340px;
+    }
+    h2 { color: #1e293b; margin-top: 0; }
+    p { color: #64748b; line-height: 1.5; }
+    button {
+      background-color: #6366f1;
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background-color: #4f46e5; }
+  </style>
+</head>
+<body>
+
+  <!-- Bagian 2: Kerangka HTML -->
+  <div class="kartu">
+    <h2>Halo, Saya Budi! 👋</h2>
+    <p>Saya baru mulai belajar membuat website dari dasar.</p>
+    <button id="tombolSapa">Klik Saya</button>
+  </div>
+
+  <!-- Bagian 3: Logika JavaScript -->
+  <script>
+    const tombol = document.getElementById("tombolSapa");
+    let sudahDiklik = false;
+
+    tombol.addEventListener("click", function() {
+      if (!sudahDiklik) {
+        alert("Selamat! Website pertama Anda berhasil bekerja! 🎉");
+        tombol.innerText = "Terima Kasih! ✨";
+        tombol.style.backgroundColor = "#10b981"; // warna hijau
+        sudahDiklik = true;
+      } else {
+        alert("Tombol sudah pernah Anda klik sebelumnya.");
+      }
+    });
+  <\/script>
+
+</body>
+</html>`,
+        callout: "Perhatikan susunan rapinya: CSS ditaruh di dalam tag &lt;style&gt;, tulisan ditaruh di dalam &lt;body&gt;, dan JavaScript ditaruh di dalam tag &lt;script&gt;. Sederhana sekali, bukan?",
+        previewWatermark: "HASIL AKHIR: 1 FILE SIAP PAKAI",
+        previewCaption: "Kartu utuh yang indah dan interaktif, siap diunduh ke komputer Anda!",
+        renderPreview: function() {
+          return `
+            <div style="background:#ffffff; padding:28px 24px; border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.12); text-align:center; max-width:320px; width:100%; border:1px solid #e2e8f0; font-family:var(--font-main);">
+              <h2 style="color:#1e293b; font-size:1.35rem; margin-top:0; margin-bottom:0.4rem; font-weight:800;">Halo, Saya Budi! 👋</h2>
+              <p style="color:#64748b; font-size:0.9rem; line-height:1.5; margin-bottom:1.25rem;">Saya baru mulai belajar membuat website dari dasar.</p>
+              <button id="step4-interactive-btn" onclick="testStep4Click(this)" style="background:#6366f1; color:#fff; border:none; padding:11px 24px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(99,102,241,0.35); transition:all 0.3s ease;">
+                Klik Saya ✨
+              </button>
+            </div>
+          `;
+        }
+      }
+    };
+
+    function setStep(stepNum) {
+      state.currentStep = stepNum;
+      renderStep();
+    }
+
+    function navigateStep(direction) {
+      const target = state.currentStep + direction;
+      if (target >= 1 && target <= 4) {
+        setStep(target);
+      }
+    }
+
+    function renderStep() {
+      const step = stepData[state.currentStep];
+      if (!step) return;
+
+      // Update Stepper Pill Buttons
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`step-btn-${i}`);
+        if (btn) {
+          btn.classList.toggle('active', i === state.currentStep);
+        }
+      }
+
+      // Update Text Content
+      document.getElementById('step-badge').textContent = step.badge;
+      document.getElementById('step-title').textContent = step.title;
+      document.getElementById('step-description').textContent = step.desc;
+      document.getElementById('step-code-title').textContent = step.codeTitle;
+      document.getElementById('step-code-content').textContent = step.code;
+      document.getElementById('step-callout-text').innerHTML = step.callout;
+      document.getElementById('preview-watermark-tag').textContent = step.previewWatermark;
+      document.getElementById('step-preview-caption').textContent = step.previewCaption;
+
+      // Render Live Preview
+      document.getElementById('step-live-preview').innerHTML = step.renderPreview();
+
+      // Update Next/Prev Button state
+      const prevBtn = document.getElementById('step-prev-btn');
+      const nextBtn = document.getElementById('step-next-btn');
+
+      if (state.currentStep === 1) {
+        prevBtn.style.visibility = 'hidden';
+      } else {
+        prevBtn.style.visibility = 'visible';
+        prevBtn.textContent = `⬅ Kembali ke Langkah ${state.currentStep - 1}`;
+      }
+
+      if (state.currentStep === 4) {
+        nextBtn.innerHTML = `💾 Unduh File .html Ini!`;
+        nextBtn.className = 'btn btn-emerald';
+        nextBtn.onclick = downloadStep4File;
+      } else {
+        nextBtn.innerHTML = `Lanjut ke Langkah ${state.currentStep + 1} ➔`;
+        nextBtn.className = 'btn btn-primary';
+        nextBtn.onclick = () => navigateStep(1);
+      }
+    }
+
+    function copyCurrentStepCode() {
+      const code = stepData[state.currentStep].code;
+      copyText(code, `Kode Langkah ${state.currentStep} berhasil disalin!`);
+    }
+
+    // Step 3 & 4 interactive preview click handlers
+    function testStep3Click(btn) {
+      alert("Halo teman! Selamat datang di dunia Web Development 🎉");
+      btn.innerText = "Sudah Diklik ✓";
+      btn.style.backgroundColor = "#10b981";
+      showToast("Bagus sekali! Logika JavaScript berhasil dieksekusi.");
+    }
+
+    function testStep4Click(btn) {
+      alert("Selamat! Website pertama Anda sudah sempurna dan interaktif! 🎉");
+      btn.innerText = "Berhasil! ✨";
+      btn.style.backgroundColor = "#10b981";
+      showToast("Hebat! Anda telah menguasai HTML, CSS, dan JavaScript dasar.");
+    }
+
+    function downloadStep4File() {
+      const fileContent = stepData[4].code;
+      const blob = new Blob([fileContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'website-pertama-saya.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("File 'website-pertama-saya.html' berhasil diunduh! Cukup klik dua kali untuk membukanya.");
+    }
+
+    /* ==========================================================================
+       3. MODUL PEMBELAJARAN (BAHASA SEDERHANA)
+       ========================================================================== */
+    const modulesData = [
+      {
+        id: 1,
+        title: "HTML5: Fondasi Mudah Membuat Halaman Web",
+        subtitle: "Modul 1: Membangun Kerangka Rumah Web Anda",
+        lead: "HTML adalah singkatan dari HyperText Markup Language. Sederhananya, HTML adalah bahasa untuk menyusun tulisan, foto, formulir, dan tombol di layar.",
+        lessons: [
+          {
+            title: "1. Susunan Dokumen HTML yang Sederhana",
+            content: `Setiap file HTML memiliki dua bagian utama: <code>&lt;head&gt;</code> untuk informasi judul website, dan <code>&lt;body&gt;</code> untuk isi yang dilihat oleh mata pengunjung.`,
+            code: `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Sederhana Saya</title>
+</head>
+<body>
+  <h1>Selamat Datang di Halaman Saya!</h1>
+  <p>Ini adalah kalimat pertama yang saya tulis dengan HTML.</p>
+</body>
+</html>`,
+            tip: "Cukup simpan kode di atas dengan nama <code>index.html</code>, lalu klik dua kali untuk membukanya di browser seperti Chrome atau Edge!"
+          },
+          {
+            title: "2. Mengenal Tag Judul, Paragraf, dan Tombol",
+            content: `HTML menggunakan 'tag' dengan kurung siku seperti <code>&lt;h1&gt;</code> sampai <code>&lt;h6&gt;</code> untuk ukuran judul, <code>&lt;p&gt;</code> untuk paragraf, dan <code>&lt;button&gt;</code> untuk tombol.`,
+            code: `<h1>Ini Judul Sangat Besar</h1>
+<h2>Ini Sub-Judul Sedang</h2>
+<p>Ini adalah cerita atau tulisan yang nyaman dibaca pengunjung.</p>
+<button>Klik Tombol Ini</button>`,
+            tip: "Selalu ingat untuk menutup tag yang dibuka, misalnya buka dengan <code>&lt;p&gt;</code> dan tutup dengan <code>&lt;/p&gt;</code>."
+          },
+          {
+            title: "3. Membuat Formulir Isian Sederhana",
+            content: `Formulir digunakan untuk meminta data dari pengunjung, misalnya nama dan email. Di HTML5, Anda cukup memberi atribut <code>required</code> agar pengunjung tidak mengosongkan isian!`,
+            code: `<form>
+  <label for="nama">Nama Lengkap:</label>
+  <input type="text" id="nama" placeholder="Tulis nama Anda" required>
+
+  <label for="email">Alamat Email:</label>
+  <input type="email" id="email" placeholder="nama@email.com" required>
+
+  <button type="submit">Kirim Sekarang</button>
+</form>`,
+            tip: "Buka tab 'Form & Sheets' untuk melihat bagaimana data form ini bisa langsung masuk ke Google Sheets gratis!"
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "CSS3: Mengatur Warna, Kerapian, & Tata Letak",
+        subtitle: "Modul 2: Mendekorasi dan Menata Ruangan Web",
+        lead: "Tanpa CSS, website terlihat seperti kertas ketikan biasa. Dengan CSS, kita bisa mengubah warna latar, merapikan jarak, dan membuat tampilan yang sedap dipandang.",
+        lessons: [
+          {
+            title: "1. Warna, Huruf, dan Sudut Membulat",
+            content: `Dengan CSS, Anda bisa memilih warna teks (<code>color</code>), warna latar (<code>background-color</code>), dan membuat sudut kotak menjadi melengkung halus (<code>border-radius</code>).`,
+            code: `.kartu-cantik {
+  background-color: #ffffff;
+  color: #1e293b;
+  border-radius: 12px; /* Sudut membulat */
+  padding: 20px;       /* Ruang napas di dalam kotak */
+}`,
+            tip: "Uji coba slider padding dan margin di tab 'Visualizer Studio -> Box Model' untuk melihat cara kerjanya!"
+          },
+          {
+            title: "2. Menata Posisi Elemen ke Samping dengan Flexbox",
+            content: `Dahulu menata tombol berjejer ke samping sangat merepotkan. Sekarang dengan Flexbox, cukup tulis <code>display: flex;</code> dan semua benda di dalamnya otomatis berbaris rapi!`,
+            code: `.menu-navigasi {
+  display: flex;
+  justify-content: space-between; /* Menjauhkan logo di kiri dan menu di kanan */
+  align-items: center;            /* Rata tengah secara vertikal */
+  gap: 15px;                      /* Jarak seragam antar item */
+}`,
+            tip: "Flexbox sangat cocok untuk menu navigasi di bagian atas website."
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "JavaScript: Memberi Kehidupan dan Aksi",
+        subtitle: "Modul 3: Otak Pintar Halaman Web Anda",
+        lead: "JavaScript membuat halaman Anda bisa berpikir dan bereaksi. Ketika tombol diklik, JavaScript yang menentukan apa yang harus terjadi.",
+        lessons: [
+          {
+            title: "1. Menangkap Klik Pengunjung (Event Listener)",
+            content: `Kita cukup memilih tombol yang ingin dipantau menggunakan <code>document.getElementById()</code>, lalu memasang pendengar klik menggunakan <code>addEventListener('click', ...)</code>.`,
+            code: `const tombol = document.getElementById("tombol-aksi");
+
+tombol.addEventListener("click", function() {
+  alert("Halo! Anda baru saja memicu kode JavaScript!");
+});`,
+            tip: "Coba fitur ini di tab 'Langkah Demi Langkah' pada Langkah ke-3 untuk melihat reaksinya secara nyata!"
+          },
+          {
+            title: "2. Mengubah Teks Secara Langsung Tanpa Refresh",
+            content: `Dengan JavaScript, kita bisa mengubah tulisan di layar secara instan menggunakan perintah <code>.innerText</code>.`,
+            code: `const judul = document.getElementById("judul-halaman");
+judul.innerText = "Selamat, Teks Berhasil Berubah!";`,
+            tip: "Inilah rahasia mengapa website modern terasa sangat cepat tanpa harus memuat ulang halaman terus-menerus."
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Database Gratis: Hubungkan Form ke Google Sheets",
+        subtitle: "Modul 4: Simpan Data Tanpa Biaya Server",
+        lead: "Anda tidak perlu menyewa server database mahal. Cukup gunakan Google Sheets gratis sebagai tempat menampung nama dan pesan pengunjung.",
+        lessons: [
+          {
+            title: "1. Cara Kerja Aliran Data (Sangat Sederhana)",
+            content: `Saat pengunjung menekan tombol 'Kirim', JavaScript mengambil tulisan dari kolom nama dan email, lalu mengirimkannya lewat internet ke Google Sheets. Di Google Sheets, baris baru langsung bertambah secara otomatis!`,
+            code: `[Pengunjung Mengisi Form di Website]
+               │
+               ▼  1. Tombol Kirim Diklik
+[JavaScript Mengemas Data]
+               │
+               ▼  2. Kirim ke Google Apps Script
+[Tabel Google Sheets Bertambah 1 Baris Baru!]`,
+            tip: "Buka tab 'Form & Sheets' di atas untuk menguji coba simulator pengiriman data ini!"
+          }
+        ]
+      },
+      {
+        id: 5,
+        title: "Publikasi Gratis: Online-kan Website di GitHub Pages",
+        subtitle: "Modul 5: Tunjukkan Karya Anda ke Seluruh Dunia",
+        lead: "Hanya butuh 4 langkah mudah untuk membuat website Anda bisa diakses oleh teman, guru, dan keluarga dari seluruh dunia melalui internet.",
+        lessons: [
+          {
+            title: "1. Langkah Meng-online-kan Website",
+            content: `<ol style="margin-left:1.5rem; color:var(--text-muted); line-height:1.7;">
+  <li>Buka <a href="https://github.com" target="_blank">github.com</a> dan buat repositori baru (misal: <code>website-saya</code>).</li>
+  <li>Unggah file <code>index.html</code> Anda ke sana.</li>
+  <li>Masuk ke menu <strong>Settings</strong> $\rightarrow$ <strong>Pages</strong>.</li>
+  <li>Pilih Branch: <strong>main</strong>, lalu klik <strong>Save</strong>.</li>
+</ol>`,
+            code: `Website Anda langsung online gratis dengan alamat:
+https://username-anda.github.io/website-saya/`,
+            tip: "Website Anda otomatis memiliki gembok aman (HTTPS) gratis seumur hidup!"
+          }
+        ]
+      }
+    ];
+
+    function loadModule(moduleId) {
+      state.activeModule = moduleId;
+      
+      const navItems = document.querySelectorAll('.module-nav-item');
+      navItems.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === moduleId);
+      });
+
+      if (!state.completedModules.includes(moduleId)) {
+        state.completedModules.push(moduleId);
+        localStorage.setItem('webcraft_completed', JSON.stringify(state.completedModules));
+      }
+
+      const mod = modulesData.find(m => m.id === moduleId);
+      const container = document.getElementById('module-display-area');
+      if (!mod || !container) return;
+
+      let lessonsHTML = mod.lessons.map(lesson => `
+        <div class="lesson-section">
+          <h3>${lesson.title}</h3>
+          <p>${lesson.content}</p>
+          
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <div class="code-dots">
+                <span class="code-dot dot-red"></span>
+                <span class="code-dot dot-yellow"></span>
+                <span class="code-dot dot-green"></span>
+              </div>
+              <button class="copy-btn" onclick="copyText(\`${escapeForCode(lesson.code)}\`)">📋 Salin Contoh</button>
+            </div>
+            <pre class="code-block"><code>${escapeHTML(lesson.code)}</code></pre>
+          </div>
+
+          ${lesson.tip ? `
+            <div class="callout tip">
+              <div class="callout-title">💡 Tips Praktis:</div>
+              <div>${lesson.tip}</div>
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="module-header">
+          <div class="module-subtitle">${mod.subtitle}</div>
+          <h2 class="module-title">${mod.title}</h2>
+          <p class="module-lead">${mod.lead}</p>
+        </div>
+        ${lessonsHTML}
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--border-subtle);">
+          ${moduleId > 1 ? `<button class="btn btn-secondary" onclick="loadModule(${moduleId - 1})">⬅ Modul Sebelumnya</button>` : '<div></div>'}
+          ${moduleId < 5 ? `<button class="btn btn-primary" onclick="loadModule(${moduleId + 1})">Lanjut Modul ${moduleId + 1} ➔</button>` : `<button class="btn btn-emerald" onclick="switchMainTab('quiz')">🏆 Mulai Kuis Evaluasi</button>`}
+        </div>
+      `;
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function escapeForCode(str) {
+      return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+    }
+
+    /* ==========================================================================
+       4. VISUALIZER STUDIO ENGINE
+       ========================================================================== */
+    const studioConfig = {
+      boxmodel: { margin: 24, border: 6, padding: 24, boxSizing: 'border-box' },
+      flexbox: { direction: 'row', justify: 'space-between', align: 'center', wrap: 'nowrap', gap: 16, itemCount: 4 },
+      grid: { preset: 'holy-grail', columns: 3, gap: 16 },
+      animation: { effect: 'animPulse', duration: 1.5, timing: 'ease-in-out', iteration: 'infinite' },
+      hover: { effect: 'sibling' },
+      semantic: { mode: 'semantic' }
+    };
+
+    function switchStudio(studioId) {
+      state.activeStudio = studioId;
+      document.querySelectorAll('.studio-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(studioId));
+      });
+      renderStudio();
+    }
+
+    function renderStudio() {
+      const controlsContainer = document.getElementById('studio-controls-container');
+      const canvas = document.getElementById('studio-canvas');
+      const title = document.getElementById('studio-preview-title');
+      const codeOutput = document.getElementById('studio-code-output');
+
+      if (!controlsContainer || !canvas || !title || !codeOutput) return;
+
+      if (state.activeStudio === 'boxmodel') {
+        title.innerHTML = `<span>📦</span> Box Model Lab (Bantal &amp; Jarak Elemen)`;
+        const cfg = studioConfig.boxmodel;
+
+        controlsContainer.innerHTML = `
+          <h4 style="font-size:1.1rem; font-weight:700;">Pengaturan Ukuran Kotak</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted);">
+            Geser slider untuk melihat bagaimana Margin (jarak luar), Border (garis tepi), dan Padding (bantal dalam) bekerja.
+          </p>
+
+          <div class="control-group">
+            <label class="control-label">
+              <span>Margin (Jarak ke Luar)</span>
+              <span class="control-val" id="val-bm-margin">${cfg.margin}px</span>
+            </label>
+            <input type="range" class="studio-slider" min="0" max="50" value="${cfg.margin}" oninput="updateBoxModel('margin', this.value)">
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              <span>Border (Garis Tepi)</span>
+              <span class="control-val" id="val-bm-border">${cfg.border}px</span>
+            </label>
+            <input type="range" class="studio-slider" min="0" max="20" value="${cfg.border}" oninput="updateBoxModel('border', this.value)">
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              <span>Padding (Bantal Ruang Dalam)</span>
+              <span class="control-val" id="val-bm-padding">${cfg.padding}px</span>
+            </label>
+            <input type="range" class="studio-slider" min="0" max="50" value="${cfg.padding}" oninput="updateBoxModel('padding', this.value)">
+          </div>
+        `;
+
+        renderBoxModelCanvas();
+      } 
+      else if (state.activeStudio === 'flexbox') {
+        title.innerHTML = `<span>📐</span> Flexbox Lab (Rak Penata Otomatis)`;
+        const cfg = studioConfig.flexbox;
+
+        controlsContainer.innerHTML = `
+          <h4 style="font-size:1.1rem; font-weight:700;">Atur Barisan Kotak</h4>
+
+          <div class="control-group">
+            <label class="control-label">Arah Barisan (flex-direction)</label>
+            <div class="btn-group">
+              ${['row', 'column'].map(d => `
+                <button class="btn-pill ${cfg.direction === d ? 'active' : ''}" onclick="updateFlexbox('direction', '${d}')">${d === 'row' ? 'Ke Samping (Baris)' : 'Ke Bawah (Kolom)'}</button>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Perataan (justify-content)</label>
+            <select class="select-input" onchange="updateFlexbox('justify', this.value)">
+              <option value="space-between" ${cfg.justify === 'space-between' ? 'selected' : ''}>Menyebar Ujung ke Ujung</option>
+              <option value="center" ${cfg.justify === 'center' ? 'selected' : ''}>Kumpul di Tengah</option>
+              <option value="flex-start" ${cfg.justify === 'flex-start' ? 'selected' : ''}>Rata Kiri</option>
+              <option value="space-around" ${cfg.justify === 'space-around' ? 'selected' : ''}>Beri Jarak Seragam</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              <span>Jarak Antar Kotak (gap)</span>
+              <span class="control-val">${cfg.gap}px</span>
+            </label>
+            <input type="range" class="studio-slider" min="0" max="40" value="${cfg.gap}" oninput="updateFlexbox('gap', this.value)">
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Jumlah Kotak</label>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn btn-secondary" style="flex:1;" onclick="modifyFlexItemCount(1)">+ Tambah</button>
+              <button class="btn btn-secondary" style="flex:1;" onclick="modifyFlexItemCount(-1)">- Kurang</button>
+            </div>
+          </div>
+        `;
+
+        renderFlexboxCanvas();
+      }
+      else if (state.activeStudio === 'animation') {
+        title.innerHTML = `<span>✨</span> Keyframe &amp; Gerakan Animasi`;
+        const cfg = studioConfig.animation;
+
+        controlsContainer.innerHTML = `
+          <h4 style="font-size:1.1rem; font-weight:700;">Pilih Efek Animasi</h4>
+
+          <div class="control-group">
+            <label class="control-label">Nama Gerakan</label>
+            <select class="select-input" onchange="updateAnimation('effect', this.value)">
+              <option value="animPulse" ${cfg.effect === 'animPulse' ? 'selected' : ''}>Pulse (Detak Cahaya)</option>
+              <option value="animBounce" ${cfg.effect === 'animBounce' ? 'selected' : ''}>Bounce (Memantul)</option>
+              <option value="animSpin" ${cfg.effect === 'animSpin' ? 'selected' : ''}>Spin (Memutar 360°)</option>
+              <option value="animShake" ${cfg.effect === 'animShake' ? 'selected' : ''}>Shake (Menggetar)</option>
+              <option value="animFloat" ${cfg.effect === 'animFloat' ? 'selected' : ''}>Float (Melayang Halus)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              <span>Kecepatan Durasi</span>
+              <span class="control-val">${cfg.duration} detik</span>
+            </label>
+            <input type="range" class="studio-slider" min="0.3" max="3.0" step="0.1" value="${cfg.duration}" oninput="updateAnimation('duration', this.value)">
+          </div>
+        `;
+
+        renderAnimationCanvas();
+      }
+      else if (state.activeStudio === 'grid') {
+        title.innerHTML = `<span>📰</span> CSS Grid Builder (Tata Letak 2D)`;
+        const cfg = studioConfig.grid;
+
+        controlsContainer.innerHTML = `
+          <h4 style="font-size:1.1rem; font-weight:700;">Pola Tata Letak</h4>
+          <div class="control-group">
+            <label class="control-label">Pola Preset</label>
+            <div class="btn-group">
+              <button class="btn-pill ${cfg.preset === 'holy-grail' ? 'active' : ''}" onclick="updateGrid('preset', 'holy-grail')">Struktur Halaman Lengkap</button>
+              <button class="btn-pill ${cfg.preset === 'cards' ? 'active' : ''}" onclick="updateGrid('preset', 'cards')">Galeri Kotak</button>
+            </div>
+          </div>
+        `;
+        renderGridCanvas();
+      }
+      else if (state.activeStudio === 'hover') {
+        title.innerHTML = `<span>⚡</span> Hover &amp; Sentuhan Kursor`;
+        controlsContainer.innerHTML = `
+          <h4 style="font-size:1.1rem; font-weight:700;">Sentuh dengan Kursor</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">
+            Arahkan kursor Anda ke salah satu kartu di panel kanan. Kartu yang Anda sentuh akan terangkat dan kartu di sampingnya meredup secara otomatis!
+          </p>
+        `;
+        renderHoverCanvas();
+      }
+      else if (state.activeStudio === 'semantic') {
+        title.innerHTML = `<span>🏷️</span> HTML Semantik vs Div Biasa`;
+        const isSem = studioConfig.semantic.mode === 'semantic';
+        controlsContainer.innerHTML = `
+          <h4 style="font-size:1.1rem; font-weight:700;">Pemeriksa Kerapian Kode</h4>
+          <div class="btn-group" style="margin-top:0.5rem;">
+            <button class="btn-pill ${isSem ? 'active' : ''}" onclick="updateSemantic('semantic')">✅ Tag Semantik (Rapi)</button>
+            <button class="btn-pill ${!isSem ? 'active' : ''}" onclick="updateSemantic('divsoup')">❌ Semrawut (Div Saja)</button>
+          </div>
+        `;
+        renderSemanticCanvas();
+      }
+    }
+
+    function renderBoxModelCanvas() {
+      const cfg = studioConfig.boxmodel;
+      const canvas = document.getElementById('studio-canvas');
+      const codeOutput = document.getElementById('studio-code-output');
+
+      canvas.innerHTML = `
+        <div class="boxmodel-margin-layer" style="padding:${cfg.margin}px;">
+          <span class="box-tag tag-margin">Margin: ${cfg.margin}px</span>
+          <div class="boxmodel-border-layer" style="border-width:${cfg.border}px; padding:${cfg.padding}px;">
+            <span class="box-tag tag-border">Border: ${cfg.border}px</span>
+            <div class="boxmodel-padding-layer">
+              <span class="box-tag tag-padding">Padding: ${cfg.padding}px</span>
+              <div class="boxmodel-content-layer">
+                KONTEN ISI<br>
+                <small style="font-weight:normal; font-size:0.75rem;">(Tulisan Anda)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      codeOutput.textContent = `.kotak-saya {
+  margin: ${cfg.margin}px;           /* Jarak ke luar kotak */
+  border: ${cfg.border}px solid #facc15;  /* Garis bingkai kuning */
+  padding: ${cfg.padding}px;         /* Bantal ruang di dalam */
+  background-color: #38bdf8;
+}`;
+    }
+
+    function updateBoxModel(prop, val) {
+      studioConfig.boxmodel[prop] = parseInt(val);
+      const valEl = document.getElementById(`val-bm-${prop}`);
+      if (valEl) valEl.textContent = `${val}px`;
+      renderBoxModelCanvas();
+    }
+
+    function renderFlexboxCanvas() {
+      const cfg = studioConfig.flexbox;
+      const canvas = document.getElementById('studio-canvas');
+      const codeOutput = document.getElementById('studio-code-output');
+
+      let itemsHTML = '';
+      for (let i = 1; i <= cfg.itemCount; i++) {
+        itemsHTML += `<div class="flex-item-box">${i}</div>`;
+      }
+
+      canvas.innerHTML = `
+        <div class="flex-lab-container" style="
+          flex-direction: ${cfg.direction};
+          justify-content: ${cfg.justify};
+          align-items: ${cfg.align};
+          gap: ${cfg.gap}px;
+        ">
+          ${itemsHTML}
+        </div>
+      `;
+
+      codeOutput.textContent = `.wadah-flex {
+  display: flex;
+  flex-direction: ${cfg.direction};
+  justify-content: ${cfg.justify};
+  gap: ${cfg.gap}px;
+}`;
+    }
+
+    function updateFlexbox(prop, val) {
+      studioConfig.flexbox[prop] = prop === 'gap' ? parseInt(val) : val;
+      renderStudio();
+    }
+    function modifyFlexItemCount(delta) {
+      studioConfig.flexbox.itemCount = Math.max(1, Math.min(8, studioConfig.flexbox.itemCount + delta));
+      renderFlexboxCanvas();
+    }
+
+    function renderAnimationCanvas() {
+      const cfg = studioConfig.animation;
+      const canvas = document.getElementById('studio-canvas');
+      const codeOutput = document.getElementById('studio-code-output');
+
+      canvas.innerHTML = `
+        <div class="anim-lab-stage">
+          <div class="anim-object" style="
+            animation-name: ${cfg.effect};
+            animation-duration: ${cfg.duration}s;
+            animation-timing-function: ${cfg.timing};
+            animation-iteration-count: infinite;
+          ">
+            <span>✨ Gerak</span>
+          </div>
+        </div>
+      `;
+
+      codeOutput.textContent = `.kartu-bergerak {
+  animation: ${cfg.effect.replace('anim', '').toLowerCase()} ${cfg.duration}s ease-in-out infinite;
+}`;
+    }
+
+    function updateAnimation(prop, val) {
+      studioConfig.animation[prop] = prop === 'duration' ? parseFloat(val) : val;
+      renderStudio();
+    }
+
+    function renderGridCanvas() {
+      const cfg = studioConfig.grid;
+      const canvas = document.getElementById('studio-canvas');
+      const codeOutput = document.getElementById('studio-code-output');
+
+      if (cfg.preset === 'holy-grail') {
+        canvas.innerHTML = `
+          <div class="grid-lab-container" style="
+            grid-template-columns: 160px 1fr;
+            grid-template-rows: 50px 1fr 40px;
+            gap: 12px;
+            grid-template-areas:
+              'header header'
+              'nav    main'
+              'footer footer';
+          ">
+            <div class="grid-cell grid-header" style="grid-area: header;">&lt;header&gt; Judul Web</div>
+            <div class="grid-cell grid-nav" style="grid-area: nav;">&lt;nav&gt; Menu Kiri</div>
+            <div class="grid-cell grid-main" style="grid-area: main;">&lt;main&gt; Isi Berita</div>
+            <div class="grid-cell grid-footer" style="grid-area: footer;">&lt;footer&gt; Kaki Web</div>
+          </div>
+        `;
+
+        codeOutput.textContent = `.tata-letak {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px;
+}`;
+      } else {
+        canvas.innerHTML = `
+          <div class="grid-lab-container" style="grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <div class="grid-cell grid-main">Kotak 1</div>
+            <div class="grid-cell grid-main">Kotak 2</div>
+            <div class="grid-cell grid-main">Kotak 3</div>
+          </div>
+        `;
+        codeOutput.textContent = `.galeri-tiga-kolom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}`;
+      }
+    }
+
+    function updateGrid(prop, val) {
+      studioConfig.grid[prop] = val;
+      renderStudio();
+    }
+
+    function renderHoverCanvas() {
+      const canvas = document.getElementById('studio-canvas');
+      const codeOutput = document.getElementById('studio-code-output');
+
+      canvas.innerHTML = `
+        <div class="hover-cards-row sibling-group">
+          <div class="hover-card-item">
+            <div style="font-size:2rem; margin-bottom:0.4rem;">🚀</div>
+            <strong>Cepat</strong>
+          </div>
+          <div class="hover-card-item">
+            <div style="font-size:2rem; margin-bottom:0.4rem;">🔒</div>
+            <strong>Aman</strong>
+          </div>
+          <div class="hover-card-item">
+            <div style="font-size:2rem; margin-bottom:0.4rem;">🎨</div>
+            <strong>Indah</strong>
+          </div>
+        </div>
+      `;
+
+      codeOutput.textContent = `.kartu:hover {
+  transform: translateY(-8px); /* Terangkat ke atas */
+  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+}`;
+    }
+
+    function renderSemanticCanvas() {
+      const isSem = studioConfig.semantic.mode === 'semantic';
+      const canvas = document.getElementById('studio-canvas');
+      const codeOutput = document.getElementById('studio-code-output');
+
+      if (isSem) {
+        canvas.innerHTML = `
+          <div class="semantic-wrapper">
+            <div class="sem-node"><span class="sem-node-tag">&lt;header&gt;</span> Bagian Atas / Judul</div>
+            <div class="sem-node"><span class="sem-node-tag">&lt;main&gt;</span> Bagian Isi Konten Utama</div>
+            <div class="sem-node"><span class="sem-node-tag">&lt;footer&gt;</span> Bagian Bawah / Hak Cipta</div>
+          </div>
+        `;
+        codeOutput.textContent = `<!-- Tag yang bermakna bagi Google & Pembaca Tunanetra -->
+<header>...</header>
+<main>...</main>
+<footer>...</footer>`;
+      } else {
+        canvas.innerHTML = `
+          <div class="semantic-wrapper">
+            <div class="sem-node" style="border-color:#ef4444;"><span class="sem-node-tag" style="color:#ef4444;">&lt;div&gt;</span> Kotak Polos Tanpa Makna</div>
+            <div class="sem-node" style="border-color:#ef4444;"><span class="sem-node-tag" style="color:#ef4444;">&lt;div&gt;</span> Kotak Polos Tanpa Makna</div>
+            <div class="sem-node" style="border-color:#ef4444;"><span class="sem-node-tag" style="color:#ef4444;">&lt;div&gt;</span> Kotak Polos Tanpa Makna</div>
+          </div>
+        `;
+        codeOutput.textContent = `<!-- Semrawut: Semua memakai div tanpa makna -->
+<div>...</div>
+<div>...</div>
+<div>...</div>`;
+      }
+    }
+
+    function updateSemantic(mode) {
+      studioConfig.semantic.mode = mode;
+      renderStudio();
+    }
+
+    function copyStudioCSS() {
+      const code = document.getElementById('studio-code-output').textContent;
+      copyText(code, 'CSS Studio berhasil disalin!');
+    }
+
+    /* ==========================================================================
+       5. LIVE CODE SANDBOX
+       ========================================================================== */
+    const sandboxTemplates = {
+      step4: {
+        html: `<div class="kartu">
+  <h2>Halo, Teman! 👋</h2>
+  <p>Ini adalah kartu web hasil dari panduan Langkah Demi Langkah WebCraft.</p>
+  <button id="tombol-sapa">Sapa Pengunjung</button>
+</div>`,
+        css: `body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.kartu {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 340px;
+}
+h2 { color: #1e293b; margin-top: 0; }
+p { color: #64748b; line-height: 1.5; margin-bottom: 20px; }
+button {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover { background-color: #4f46e5; }`,
+        js: `const tombol = document.getElementById("tombol-sapa");
+tombol.addEventListener("click", () => {
+  alert("Halo! Kode JavaScript Anda berhasil dijalankan dengan mulus 🎉");
+  tombol.innerText = "Sudah Disapa ✨";
+  tombol.style.backgroundColor = "#10b981";
+  console.log("Tombol berhasil disapa!");
+});`
+      },
+      profile: {
+        html: `<div class="card">
+  <h2>Siti Rahmawati</h2>
+  <p class="role">Pelajar Web Desain</p>
+  <p class="bio">Sedang belajar membuat halaman web interaktif menggunakan HTML, CSS, dan JavaScript.</p>
+  <button id="btn-follow" class="btn">Ikuti Profil</button>
+</div>`,
+        css: `body {
+  font-family: sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.card {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 300px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+h2 { margin: 0 0 5px; font-size: 1.4rem; }
+.role { color: #38bdf8; font-size: 0.85rem; font-weight: bold; margin-bottom: 12px; }
+.bio { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; margin-bottom: 20px; }
+.btn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-weight: bold;
+  cursor: pointer;
+}`,
+        js: `const btn = document.getElementById('btn-follow');
+btn.addEventListener('click', () => {
+  btn.innerText = 'Mengikuti ✓';
+  btn.style.background = '#10b981';
+  console.log('Profil diikuti!');
+});`
+      },
+      contact: {
+        html: `<div class="form-box">
+  <h3>Kirim Pesan Sederhana</h3>
+  <input type="text" id="nama" placeholder="Tulis nama Anda">
+  <button onclick="kirimPesan()">Kirim Sapaan</button>
+  <p id="hasil"></p>
+</div>`,
+        css: `body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f8fafc; }
+.form-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); text-align: center; width: 280px; }
+input { width: 90%; padding: 8px 10px; margin-bottom: 12px; border: 1px solid #cbd5e1; border-radius: 6px; }
+button { width: 100%; padding: 10px; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }`,
+        js: `function kirimPesan() {
+  const nama = document.getElementById('nama').value || 'Teman';
+  document.getElementById('hasil').innerText = 'Halo ' + nama + ', pesan Anda sampai!';
+  console.log('Pesan terkirim ke ' + nama);
+}`
+      },
+      calculator: {
+        html: `<div class="calc">
+  <div id="display">0</div>
+  <div class="calc-buttons">
+    <button onclick="tambahAngka('1')">1</button>
+    <button onclick="tambahAngka('2')">2</button>
+    <button onclick="tambahAngka('3')">3</button>
+    <button onclick="tambahAngka('+')" class="btn-op">+</button>
+    <button onclick="tambahAngka('4')">4</button>
+    <button onclick="tambahAngka('5')">5</button>
+    <button onclick="tambahAngka('6')">6</button>
+    <button onclick="tambahAngka('-')" class="btn-op">-</button>
+    <button onclick="tambahAngka('7')">7</button>
+    <button onclick="tambahAngka('8')">8</button>
+    <button onclick="tambahAngka('9')">9</button>
+    <button onclick="tambahAngka('*')" class="btn-op">&times;</button>
+    <button onclick="hapusDisplay()" class="btn-c">C</button>
+    <button onclick="tambahAngka('0')">0</button>
+    <button onclick="hitung()" class="btn-equal">=</button>
+    <button onclick="tambahAngka('/')" class="btn-op">/</button>
+  </div>
+</div>`,
+        css: `body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: #1e1b4b;
+  font-family: Arial, sans-serif;
+}
+.calc {
+  background: #312e81;
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  width: 260px;
+}
+#display {
+  background: #0f172a;
+  color: #38bdf8;
+  font-size: 2.2rem;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: right;
+  font-family: monospace;
+  overflow: hidden;
+}
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+button {
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  background: #4338ca;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.15s;
+}
+button:hover {
+  background: #6366f1;
+}
+.btn-op {
+  background: #0284c7;
+}
+.btn-c {
+  background: #e11d48;
+}
+.btn-equal {
+  background: #10b981;
+}
+.btn-equal:hover {
+  background: #059669;
+}`,
+        js: `let ekspresi = '';
+
+function tambahAngka(val) {
+  ekspresi += val;
+  document.getElementById('display').innerText = ekspresi;
+  console.log('Angka ditekan:', val);
+}
+
+function hapusDisplay() {
+  ekspresi = '';
+  document.getElementById('display').innerText = '0';
+  console.log('Display dibersihkan');
+}
+
+function hitung() {
+  try {
+    const hasil = eval(ekspresi);
+    document.getElementById('display').innerText = hasil;
+    console.log('Hasil perhitungan:', hasil);
+    ekspresi = String(hasil);
+  } catch(e) {
+    document.getElementById('display').innerText = 'Error';
+    console.log('Perhitungan error:', e.message);
+  }
+}
+
+console.log('Kalkulator siap! Coba klik angka dan operator.');`
+      },
+      landing: {
+        html: `<div class="hero">
+  <h1>Selamat Datang di Website Saya</h1>
+  <p>Website ini dibuat sendiri menggunakan HTML dan CSS dasar.</p>
+  <a href="#" class="btn-hero" onclick="alert('Halo pengunjung!'); return false;">Jelajahi Sekarang</a>
+</div>`,
+        css: `body { margin: 0; font-family: sans-serif; background: #0b0f19; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; padding: 20px; }
+.hero { max-width: 500px; }
+h1 { font-size: 2.2rem; margin-bottom: 10px; }
+p { color: #94a3b8; font-size: 1rem; line-height: 1.5; margin-bottom: 25px; }
+.btn-hero { background: #6366f1; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; }`,
+        js: `console.log('Landing page berhasil dibuka!');`
+      }
+    };
+
+    function loadSandboxTemplate(key) {
+      const tpl = sandboxTemplates[key] || sandboxTemplates.step4;
+      state.sandboxCode.html = tpl.html;
+      state.sandboxCode.css = tpl.css;
+      state.sandboxCode.js = tpl.js;
+
+      const editor = document.getElementById('sandbox-code-editor');
+      if (editor) {
+        editor.value = state.sandboxCode[state.editorLanguage];
+      }
+
+      const consoleOut = document.getElementById('sandbox-console-output');
+      if (consoleOut) {
+        consoleOut.innerText = `> Konsol siap. Template '${key}' aktif.`;
+      }
+
+      runSandboxCode();
+      showToast(`Template '${key}' berhasil dimuat!`);
+    }
+
+    function switchEditorLanguage(lang) {
+      const editor = document.getElementById('sandbox-code-editor');
+      if (editor) {
+        state.sandboxCode[state.editorLanguage] = editor.value;
+      }
+      state.editorLanguage = lang;
+
+      document.querySelectorAll('.editor-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === `tab-btn-${lang}`);
+      });
+
+      if (editor) {
+        editor.value = state.sandboxCode[lang];
+      }
+    }
+
+    function runSandboxCode() {
+      const editor = document.getElementById('sandbox-code-editor');
+      if (editor) {
+        state.sandboxCode[state.editorLanguage] = editor.value;
+      }
+
+      const iframe = document.getElementById('sandbox-live-frame');
+      if (!iframe) return;
+
+      const combinedHTML = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+${state.sandboxCode.css || ''}
+  </style>
+</head>
+<body>
+${state.sandboxCode.html || ''}
+  <script>
+    (function() {
+      const oldLog = console.log;
+      console.log = function(...args) {
+        try {
+          const msg = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+          window.parent.postMessage({ type: 'SANDBOX_LOG', message: msg }, '*');
+        } catch(e) {}
+        oldLog.apply(console, args);
+      };
+      window.onerror = function(msg, url, line) {
+        try {
+          window.parent.postMessage({ type: 'SANDBOX_LOG', message: '⚠️ Error: ' + msg }, '*');
+        } catch(e) {}
+      };
+    })();
+  <\/script>
+  <script>
+${state.sandboxCode.js || ''}
+  <\/script>
+</body>
+</html>`;
+
+      // Coba render langsung via contentDocument (paling cepat dan stabil untuk file:// lokal)
+      let rendered = false;
+      try {
+        const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+        if (doc) {
+          doc.open();
+          doc.write(combinedHTML);
+          doc.close();
+          rendered = true;
+        }
+      } catch(err) {
+        console.warn('contentDocument write dibatasi, beralih ke srcdoc:', err);
+      }
+
+      // Fallback srcdoc jika diperlukan
+      if (!rendered) {
+        iframe.srcdoc = combinedHTML;
+      }
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SANDBOX_LOG') {
+        const consoleOut = document.getElementById('sandbox-console-output');
+        if (consoleOut) {
+          consoleOut.innerText += `\n> ${e.data.message}`;
+          consoleOut.scrollTop = consoleOut.scrollHeight;
+        }
+      }
+    });
+
+    let debounceTimer = null;
+    document.addEventListener('DOMContentLoaded', () => {
+      const editor = document.getElementById('sandbox-code-editor');
+      if (editor) {
+        editor.addEventListener('input', () => {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(runSandboxCode, 600);
+        });
+      }
+    });
+
+    function resetSandboxCode() {
+      const sel = document.getElementById('sandbox-template-select');
+      loadSandboxTemplate(sel ? sel.value : 'step4');
+    }
+
+    function downloadSandboxProject() {
+      const combinedHTML = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyek Web Saya</title>
+  <style>
+${state.sandboxCode.css}
+  </style>
+</head>
+<body>
+${state.sandboxCode.html}
+
+  <script>
+${state.sandboxCode.js}
+  <\/script>
+</body>
+</html>`;
+
+      const blob = new Blob([combinedHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'proyek-web-saya.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('File index.html berhasil diunduh!');
+    }
+
+    /* ==========================================================================
+       6. GOOGLE APPS SCRIPT FORM SIMULATOR
+       ========================================================================== */
+    function setGasMode(mode) {
+      state.gasMode = mode;
+      document.getElementById('gas-mode-mock').classList.toggle('active', mode === 'mock');
+      document.getElementById('gas-mode-live').classList.toggle('active', mode === 'live');
+      document.getElementById('gas-url-container').style.display = mode === 'live' ? 'flex' : 'none';
+      showToast(`Mode: ${mode === 'mock' ? 'Simulasi Cepat' : 'URL Nyata'}`);
+    }
+
+    function updateGasPayloadPreview() {
+      const name = document.getElementById('gas-input-name').value || 'Nama Contoh';
+      const email = document.getElementById('gas-input-email').value || 'email@contoh.com';
+      const msg = document.getElementById('gas-input-message').value || 'Pesan contoh...';
+
+      const payload = { nama: name, email: email, pesan: msg, timestamp: new Date().toISOString() };
+      const codeBox = document.getElementById('gas-payload-code');
+      if (codeBox) codeBox.textContent = JSON.stringify(payload, null, 2);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      ['gas-input-name', 'gas-input-email', 'gas-input-message'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateGasPayloadPreview);
+      });
+    });
+
+    function handleGasFormSubmit(event) {
+      event.preventDefault();
+      const submitBtn = document.getElementById('gas-submit-btn');
+      const statusAlert = document.getElementById('gas-status-alert');
+
+      const name = document.getElementById('gas-input-name').value;
+      const email = document.getElementById('gas-input-email').value;
+      const msg = document.getElementById('gas-input-message').value;
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Mengirim data...';
+
+      if (state.gasMode === 'mock') {
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerText = '🚀 Kirim Sekarang';
+
+          const tableBody = document.getElementById('sheet-table-body');
+          const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
+          const tr = document.createElement('tr');
+          tr.style.background = 'rgba(16, 185, 129, 0.15)';
+          tr.innerHTML = `
+            <td>${nowStr}</td>
+            <td><strong>${escapeHTML(name)}</strong></td>
+            <td>${escapeHTML(email)}</td>
+            <td>${escapeHTML(msg)}</td>
+          `;
+          tableBody.prepend(tr);
+
+          const count = tableBody.querySelectorAll('tr').length;
+          document.getElementById('sheet-row-count').innerText = `${count} baris data tersimpan`;
+
+          statusAlert.style.display = 'block';
+          statusAlert.className = 'callout tip';
+          statusAlert.innerHTML = `
+            <strong>Berhasil Tersimpan!</strong>
+            <p>Data nama dan pesan Anda berhasil dicatat di baris pertama tabel Google Sheets di sebelah kanan.</p>
+          `;
+          showToast('Data berhasil dicatat!');
+        }, 600);
+      } else {
+        const liveUrl = document.getElementById('gas-endpoint-url').value;
+        if (!liveUrl || !liveUrl.startsWith('http')) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = '🚀 Kirim Sekarang';
+          alert('Silakan tempelkan Web App URL Google Script Anda terlebih dahulu!');
+          return;
+        }
+
+        const payload = { nama: name, email: email, pesan: msg };
+        fetch(liveUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(resData => {
+          submitBtn.disabled = false;
+          submitBtn.innerText = '🚀 Kirim Sekarang';
+          statusAlert.style.display = 'block';
+          statusAlert.className = 'callout tip';
+          statusAlert.innerHTML = `<strong>Respon dari Google:</strong> Berhasil tersimpan!`;
+          showToast('Data berhasil dikirim ke Google Sheets nyata!');
+        })
+        .catch(err => {
+          submitBtn.disabled = false;
+          submitBtn.innerText = '🚀 Kirim Sekarang';
+          statusAlert.style.display = 'block';
+          statusAlert.className = 'callout warning';
+          statusAlert.innerHTML = `<strong>Info:</strong> Periksa apakah data sudah masuk di spreadsheet Anda.`;
+        });
+      }
+    }
+
+    function copyGasPayload() {
+      const code = document.getElementById('gas-payload-code').textContent;
+      copyText(code, 'Payload disalin!');
+    }
+    function copyCodeGs() {
+      const code = document.getElementById('codegs-source').textContent;
+      copyText(code, 'Skrip Code.gs berhasil disalin!');
+    }
+
+    /* ==========================================================================
+       7. KUIS PEMAHAMAN
+       ========================================================================== */
+    const quizQuestions = [
+      {
+        cat: "MODUL 1: HTML DASAR",
+        q: "Tag HTML manakah yang digunakan untuk membuat tulisan paragraf biasa?",
+        options: ["&lt;p&gt;", "&lt;h1&gt;", "&lt;button&gt;", "&lt;div&gt;"],
+        ans: 0,
+        explanation: "Tag <p> adalah singkatan dari paragraph, digunakan untuk menulis kalimat atau paragraf cerita."
+      },
+      {
+        cat: "MODUL 1: HTML DASAR",
+        q: "Apa fungsi utama dari tag &lt;button&gt; pada halaman web?",
+        options: ["Membuat tombol yang bisa diklik", "Membuat garis pembatas", "Memasukkan gambar", "Menutup halaman web"],
+        ans: 0,
+        explanation: "Tag <button> membuat tombol interaktif yang bisa diklik oleh pengunjung."
+      },
+      {
+        cat: "MODUL 2: CSS DASAR",
+        q: "Dalam analogi pembuatan rumah, peran CSS paling tepat diibaratkan sebagai apa?",
+        options: [
+          "Cat dinding, perabot, dan hiasan rumah yang memperindah suasana",
+          "Batu bata dan pondasi dinding",
+          "Kabel saklar listrik yang membuat lampu menyala",
+          "Koneksi internet WiFi"
+        ],
+        ans: 0,
+        explanation: "CSS adalah penata gaya yang memberi warna, merapikan jarak, dan memperindah tampilan kerangka HTML."
+      },
+      {
+        cat: "MODUL 2: CSS DASAR",
+        q: "Perintah CSS apakah yang membuat sudut kartu menjadi melengkung atau membulat halus?",
+        options: ["border-radius", "background-color", "font-size", "margin-top"],
+        ans: 0,
+        explanation: "border-radius mengatur kelengkungan sudut bingkai suatu kotak elemen."
+      },
+      {
+        cat: "MODUL 2: CSS DASAR",
+        q: "Apa kegunaan properti CSS 'display: flex;'?",
+        options: [
+          "Menata benda-benda di dalamnya berjejer rapi ke samping atau ke bawah secara otomatis",
+          "Menghapus tulisan di halaman web",
+          "Mengganti font menjadi tulisan tangan",
+          "Membuat halaman web bergetar"
+        ],
+        ans: 0,
+        explanation: "Flexbox adalah rak penata otomatis 1-dimensi yang sangat populer untuk membuat barisan menu atau kartu."
+      },
+      {
+        cat: "MODUL 3: JAVASCRIPT DASAR",
+        q: "Apa peran utama JavaScript pada halaman web?",
+        options: [
+          "Memberi aksi dan reaksi saat pengunjung mengklik tombol atau berinteraksi",
+          "Hanya untuk mewarnai tulisan menjadi merah",
+          "Untuk mematikan komputer pengguna",
+          "Hanya untuk membuat garis bawah"
+        ],
+        ans: 0,
+        explanation: "JavaScript adalah otak logika yang mendengarkan aksi pengunjung dan memberikan respon balik secara instan."
+      },
+      {
+        cat: "MODUL 3: JAVASCRIPT DASAR",
+        q: "Perintah apakah yang digunakan untuk memunculkan kotak pesan sapaan kecil di layar?",
+        options: ["alert('Halo!');", "color.change('Halo!');", "text.write();", "stop()"],
+        ans: 0,
+        explanation: "alert() adalah perintah bawaan browser untuk menampilkan kotak dialog peringatan/sapaan sederhana."
+      },
+      {
+        cat: "MODUL 4: GOOGLE SHEETS",
+        q: "Mengapa kita bisa menggunakan Google Sheets sebagai basis data formulir website?",
+        options: [
+          "Karena gratis, mudah dilihat bentuk tabelnya, dan tidak butuh sewa server berbayar",
+          "Karena warnanya hijau",
+          "Karena tidak membutuhkan koneksi internet",
+          "Karena tidak bisa diakses orang lain"
+        ],
+        ans: 0,
+        explanation: "Google Sheets dapat dijadikan database gratis berkapasitas besar melalui skrip Google Apps Script."
+      },
+      {
+        cat: "MODUL 5: GITHUB PAGES",
+        q: "Di manakah file 'index.html' harus diletakkan di repositori GitHub agar website bisa langsung aktif?",
+        options: [
+          "Langsung di root (folder utama paling luar) repositori",
+          "Di dalam folder download laptop",
+          "Di folder gambar",
+          "Harus dikunci dengan password"
+        ],
+        ans: 0,
+        explanation: "GitHub Pages secara otomatis mencari file index.html di folder utama (root) branch Anda."
+      },
+      {
+        cat: "KESIMPULAN",
+        q: "Jika Anda ingin membuat website sendiri, susunan mana yang paling tepat di dalam 1 file HTML?",
+        options: [
+          "CSS di dalam &lt;style&gt;, tulisan di dalam &lt;body&gt;, dan logika di dalam &lt;script&gt;",
+          "Semua ditulis acak di baris mana saja",
+          "Hanya boleh menggunakan CSS tanpa HTML",
+          "JavaScript harus ditaruh di luar komputer"
+        ],
+        ans: 0,
+        explanation: "Susunan standar yang rapi adalah CSS di <style>, kerangka di <body>, dan logika interaksi di <script>."
+      }
+    ];
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[state.quizIndex];
+      state.quizAnswered = false;
+
+      document.getElementById('quiz-current-num').textContent = state.quizIndex + 1;
+      document.getElementById('quiz-total-num').textContent = `/ ${quizQuestions.length}`;
+      document.getElementById('quiz-cat-badge').textContent = q.cat;
+      document.getElementById('quiz-question-text').innerHTML = q.q;
+
+      const pct = (state.quizIndex / quizQuestions.length) * 100;
+      document.getElementById('quiz-progress-bar-fill').style.width = `${pct}%`;
+
+      const optionsBox = document.getElementById('quiz-options-container');
+      const letters = ['A', 'B', 'C', 'D'];
+      optionsBox.innerHTML = q.options.map((opt, idx) => `
+        <button class="option-btn" id="opt-btn-${idx}" onclick="checkQuizAnswer(${idx})">
+          <span class="option-letter">${letters[idx]}</span>
+          <span>${opt}</span>
+        </button>
+      `).join('');
+
+      document.getElementById('quiz-feedback').style.display = 'none';
+      document.getElementById('quiz-next-btn').style.display = 'none';
+    }
+
+    function checkQuizAnswer(selectedIdx) {
+      if (state.quizAnswered) return;
+      state.quizAnswered = true;
+
+      const q = quizQuestions[state.quizIndex];
+      const feedback = document.getElementById('quiz-feedback');
+      const feedbackTitle = document.getElementById('quiz-feedback-title');
+      const feedbackText = document.getElementById('quiz-feedback-text');
+      const nextBtn = document.getElementById('quiz-next-btn');
+
+      const btns = document.querySelectorAll('.option-btn');
+      btns.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.ans) {
+          btn.classList.add('correct');
+        } else if (idx === selectedIdx) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      feedback.style.display = 'block';
+      if (selectedIdx === q.ans) {
+        state.quizScore++;
+        feedback.className = 'quiz-feedback-box correct';
+        feedbackTitle.innerHTML = '🎉 Jawaban Anda Benar!';
+        feedbackText.textContent = q.explanation;
+        showToast('Benar! Skor bertambah.');
+      } else {
+        feedback.className = 'quiz-feedback-box wrong';
+        feedbackTitle.innerHTML = '❌ Jawaban Kurang Pas:';
+        feedbackText.textContent = q.explanation;
+      }
+
+      nextBtn.style.display = 'inline-flex';
+      nextBtn.textContent = state.quizIndex < quizQuestions.length - 1 ? 'Lanjut ke Soal Berikutnya ➔' : 'Lihat Sertifikat 🏆';
+    }
+
+    function nextQuestion() {
+      if (state.quizIndex < quizQuestions.length - 1) {
+        state.quizIndex++;
+        renderQuizQuestion();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function showQuizResults() {
+      document.getElementById('quiz-main-view').style.display = 'none';
+      document.getElementById('quiz-certificate-view').style.display = 'block';
+
+      const finalPercentage = Math.round((state.quizScore / quizQuestions.length) * 100);
+      document.getElementById('cert-final-score').textContent = `${finalPercentage}% (${state.quizScore}/${quizQuestions.length} Soal Benar)`;
+
+      const certNameInput = document.getElementById('cert-student-name');
+      if (certNameInput) certNameInput.value = state.studentName;
+      showToast('Evaluasi selesai! Sertifikat Anda telah siap.');
+    }
+
+    function updateCertName(name) {
+      state.studentName = name;
+      localStorage.setItem('webcraft_student_name', name);
+    }
+
+    function resetQuiz() {
+      state.quizIndex = 0;
+      state.quizScore = 0;
+      state.quizAnswered = false;
+      document.getElementById('quiz-main-view').style.display = 'block';
+      document.getElementById('quiz-certificate-view').style.display = 'none';
+      renderQuizQuestion();
+    }
+
+    /* ==========================================================================
+       BOOTSTRAP
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderStep();
+      loadModule(1);
+      renderStudio();
+      loadSandboxTemplate('step4');
+      renderQuizQuestion();
+    });
+  </script>
+</body>
+</html>
